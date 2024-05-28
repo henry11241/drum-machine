@@ -21,7 +21,7 @@ export default function Console() {
         min="0"
         max="1"
         step="0.01"
-        value="1"
+        defaultValue="1"
       />
     </div>
   )
