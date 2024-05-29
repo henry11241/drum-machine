@@ -1,4 +1,9 @@
-export default function Console() {
+interface ConsoleProps {
+  powerOn: boolean
+  handleSwitchChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export default function Console({ powerOn, handleSwitchChange }: ConsoleProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-1 h-2/5 text-white m-4 mb-0 p-4 bg-slate-700 rounded-2xl">
       <div className="switch"></div>
@@ -7,7 +12,13 @@ export default function Console() {
         htmlFor="switch"
         className="relative h-8 w-14 mb-1 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-green-500 scale-75"
       >
-        <input type="checkbox" id="switch" className="peer sr-only" defaultChecked={true} />
+        <input
+          type="checkbox"
+          id="switch"
+          className="peer sr-only"
+          checked={powerOn}
+          onChange={handleSwitchChange}
+        />
 
         <span className="absolute inset-y-0 start-0 m-1 size-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
       </label>
