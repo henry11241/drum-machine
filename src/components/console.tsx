@@ -7,12 +7,12 @@ export default function Console() {
         htmlFor="switch"
         className="relative h-8 w-14 mb-1 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-green-500 scale-75"
       >
-        <input type="checkbox" id="switch" className="peer sr-only" />
+        <input type="checkbox" id="switch" className="peer sr-only" defaultChecked={true} />
 
         <span className="absolute inset-y-0 start-0 m-1 size-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
       </label>
       <div className="display flex items-center justify-center w-40 h-8 mb-1 text-black text-2xl font-bold bg-slate-400">
-        <span id="display-text">test</span>
+        <span id="display-text"></span>
       </div>
       <h2>Volume</h2>
       <input

@@ -2,16 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  
+.push-on {
+  animation: clicked-on 0.2s ease-in-out;
+}
+
+.push-off {
+  animation: clicked-off 0.2s ease-in-out;
+}
+
+@keyframes clicked-on {
+  50% {
+    --tw-shadow-color: #fca5a5;
+    --tw-shadow: var(--tw-shadow-colored);
+    top: 0.25rem;
+  }
+}
+
+@keyframes clicked-off {
+  50% {
+    --tw-shadow-color: #000;
+    --tw-shadow: var(--tw-shadow-colored);
+    top: 0.25rem;
+  }
 }
