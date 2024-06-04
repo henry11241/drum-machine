@@ -24,56 +24,62 @@ export default function Home() {
   useEffect(() => {
     const mainPage = document.querySelector('html')
     const displayArea = document.getElementById('display-text')
-
-    soundFiles.map((sound, index) => {
+    const eventListeners: any[] = []
+    if (displayArea) {
+      displayArea.innerText = ''
+    }
+    soundFiles.forEach((sound, index) => {
       const playBtn = document.getElementById(`button-${index}`)
       const audio = new Audio(sound[1])
-      const handleClickWhenPowerOn = () => {
+
+      const handleClick = () => {
         playBtn?.classList.remove('push-on')
+        playBtn?.classList.remove('push-off')
         requestAnimationFrame((time) => {
           requestAnimationFrame((time) => {
-            playBtn?.classList.add('push-on')
+            if (powerOn) {
+              playBtn?.classList.add('push-on')
+              audio.currentTime = 0
+              audio.play()
+              if (displayArea) {
+                displayArea.innerText = sound[1].split('/')[1].split('.')[0]
+              }
+            } else {
+              playBtn?.classList.add('push-off')
+            }
           })
         })
-        audio.currentTime = 0
-        audio.play()
-        if (displayArea) {
-          displayArea.innerText = sound[1].split('/')[1].split('.')[0]
+        
+      }
+
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === sound[0] || event.key === sound[0].toLowerCase()) {
+          handleClick()
         }
       }
-      const handleClickWhenPowerOff = () => {
-        playBtn?.addEventListener('click', () => {
-          playBtn.classList.remove('push-off')
-          requestAnimationFrame((time) => {
-            requestAnimationFrame((time) => {
-              playBtn.classList.add('push-off')
-            })
-          })
-          if (displayArea) {
-            displayArea.innerText = sound[1].split('/')[1].split('.')[0]
-          }
-        })
-      }
-      const handleKeyDown = () => {
-        mainPage?.addEventListener('keydown', (event) => {
-          if (event.key === sound[0] || event.key === sound[0].toLowerCase()) {
-            playBtn?.click()
-          }
-        })
-      }
-      if(powerOn) {
-        playBtn?.addEventListener('click', handleClickWhenPowerOn)
-      } else {
-        playBtn?.addEventListener('click', handleClickWhenPowerOff)
-      }     
-      return () => {
-        playBtn?.removeEventListener('click', handleClickWhenPowerOff)
-        playBtn?.removeEventListener('click', handleClickWhenPowerOn)
-        playBtn?.classList.remove('push-off')
-        playBtn?.classList.remove('push-on')
-        mainPage?.removeEventListener('keydown', handleKeyDown)
-      } 
+
+      playBtn?.addEventListener('click', handleClick)
+      mainPage?.addEventListener('keydown', handleKeyDown)
+
+      eventListeners.push({
+        element: playBtn,
+        event: 'click',
+        listener: handleClick,
+      })
+
+      eventListeners.push({
+        element: mainPage,
+        event: 'keydown',
+        listener: handleKeyDown,
+      })
     })
+
+    return () => {
+      eventListeners.forEach(({ element, event, listener }) => {
+        element?.removeEventListener(event, listener)
+      })
+      eventListeners.splice(0, eventListeners.length)
+    }
   }, [powerOn])
 
   return (
