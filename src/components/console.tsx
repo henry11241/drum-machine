@@ -1,9 +1,11 @@
 interface ConsoleProps {
   powerOn: boolean
+  volume: number
   handleSwitchChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleVolumeChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function Console({ powerOn, handleSwitchChange }: ConsoleProps) {
+export default function Console({ powerOn, volume, handleSwitchChange, handleVolumeChange }: ConsoleProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-1 h-2/5 text-white m-4 mb-0 p-4 bg-slate-700 rounded-2xl">
       <div className="switch"></div>
@@ -32,7 +34,8 @@ export default function Console({ powerOn, handleSwitchChange }: ConsoleProps) {
         min="0"
         max="1"
         step="0.01"
-        defaultValue="1"
+        value={volume}
+        onChange={handleVolumeChange}
       />
     </div>
   )
