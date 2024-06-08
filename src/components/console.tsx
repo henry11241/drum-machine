@@ -7,7 +7,7 @@ interface ConsoleProps {
 
 export default function Console({ powerOn, volume, handleSwitchChange, handleVolumeChange }: ConsoleProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-1 h-2/5 text-white m-4 mb-0 p-4 bg-slate-700 rounded-2xl">
+    <div className="flex flex-col items-center justify-center gap-1 h-2/5 text-white m-4 mb-0 p-4 bg-slate-700 rounded-2xl sm:h-auto sm:m-4">
       <div className="switch"></div>
       <h2>Power</h2>
       <label
