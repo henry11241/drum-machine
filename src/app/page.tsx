@@ -40,7 +40,7 @@ export default function Home() {
       audio.volume = volume
     })
     const displayArea = document.getElementById('display-text')
-    if (displayArea) {
+    if (displayArea&&powerOn) {
       displayArea.innerText = `Volume: ${volume.toFixed(2).split(".")[1]}`
     }
   }, [volume])
